@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zafar.covid19tracking">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:debuggable="true"
+        tools:ignore="HardcodedDebugMode"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".ui.activity.AddCaseActivity"
+            android:screenOrientation="portrait"
+            android:label=""/>
+
+        <activity android:name=".ui.activity.EditCaseActivity"
+            android:screenOrientation="portrait"
+            android:label=""/>
+        <activity android:name=".ui.activity.HostActivity"
+            android:screenOrientation="portrait"
+            android:label=""/>
+
+        <activity
+            android:name=".ui.activity.CasesListActivity"
+            android:label="@string/title_activity_cases"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,14 +46,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+        <activity android:name=".ui.activity.MapsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_maps"/>
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
+            android:name=".ui.activity.SplashScreenActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

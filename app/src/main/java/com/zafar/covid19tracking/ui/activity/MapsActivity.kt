@@ -1,9 +1,14 @@
-package com.zafar.covid19tracking
+package com.zafar.covid19tracking.ui.activity
 
-import CountryInfo
+import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -19,9 +24,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.zafar.covid19tracking.R
 import com.zafar.covid19tracking.adapter.CoronaRecyclerViewAdapter
 import com.zafar.covid19tracking.model.CoronaEntity
+import com.zafar.covid19tracking.model.CountryInfo
 import com.zafar.covid19tracking.services.DataService
+import com.zafar.covid19tracking.utils.OnTextChangedListener
 import kotlinx.android.synthetic.main.activity_maps.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,15 +45,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private var BaseUrl = "https://coronadatascraper.com/"
     private var progressBar: ProgressBar? = null
+    var bitmap : Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        val toolbar = customToolbar
+        setSupportActionBar(toolbar)
         progressBar = findViewById<ProgressBar>(R.id.progressbar)
+        val view = LayoutInflater.from(this@MapsActivity).inflate(R.layout.marker_view,null)
+        bitmap = getBitmapFromView(view)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         setupRvData()
+        initListener()
     }
 
     companion object {
@@ -53,6 +67,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private lateinit var dataAdapter: CoronaRecyclerViewAdapter
     }
 
+    fun getBitmapFromView(view: View): Bitmap? {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val bitmap = Bitmap.createBitmap(
+            view.measuredWidth, view.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
+    }
 
     private fun getData() {
         progressBar?.visibility = View.VISIBLE
@@ -84,11 +109,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         if (it.level == "country") {
                             mMap.addMarker(
                                 MarkerOptions()
-                                    .position(LatLng(it.coordinates[0], it.coordinates[1]))
+                                    .position(LatLng(it.coordinates[1], it.coordinates[0]))
 //                            .anchor(0.5f, 0.5f)
                                     .title(it.name)
                                     .snippet("Active:" + it.active + " " + "Death:" + it.deaths + " " + "Recovered:" + it.recovered)
-//                                    .icon(BitmapDescriptorFactory.fromResource(R.layout.marker_view))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                             )
                             coronaEntityInfo = CoronaEntity.DataInfo()
                             coronaEntityInfo.country = it.name
@@ -117,6 +142,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_map_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_covid19_cases -> {
+                startActivity(Intent(this, CasesListActivity::class.java))
+                true
+            }
+            R.id.action_admin_panel -> {
+                startActivity(Intent(this, HostActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initListener() {
+
+        edt_search.OnTextChangedListener { text ->
+            dataAdapter.filter.filter(text)
+        }
+
+    }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         try {
@@ -151,7 +204,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             setHasFixedSize(true)
         }
 
-        rvData.adapter = dataAdapter
+        rvData.adapter =
+            dataAdapter
         rvData.adapter?.notifyDataSetChanged()
     }
 }

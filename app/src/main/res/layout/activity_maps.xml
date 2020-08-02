@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,21 +12,38 @@
         android:layout_height="match_parent"
         android:background="@color/black_night">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <fragment
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/customToolbar"
+                style="@style/MyToolbarThemeSimple.Base"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MapsActivity" />
+            tools:context=".ui.activity.MapsActivity" />
 
         <ProgressBar
             android:id="@+id/progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ProgressBar"
-            android:visibility="gone"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:visibility="visible"
+            android:indeterminateTint="@android:color/darker_gray"
+            android:layout_marginTop="60dp"
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,6 +53,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/refresh"
+            android:visibility="gone"
             app:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -122,7 +141,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Data provided by: "
+                tools:text="Data provided by: "
                 android:visibility="gone" />
 
             <LinearLayout
@@ -259,7 +278,8 @@
                     android:layout_width="26dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    app:srcCompat="@drawable/ic_search_black_night" />
+                    app:srcCompat="@drawable/ic_search_black_night"
+                    android:contentDescription="@string/app_name" />
 
                 <EditText
                     android:id="@+id/edt_search"
@@ -270,7 +290,10 @@
                     android:focusableInTouchMode="true"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textColor="@color/black_night" />
+                    android:textColor="@color/black_night"
+                    android:inputType="text"
+                    android:autofillHints="@string/recovered"
+                    tools:ignore="LabelFor" />
             </LinearLayout>
 
 
@@ -321,7 +344,8 @@
                         android:textSize="14sp"
                         app:autoSizeMaxTextSize="20sp"
                         app:autoSizeMinTextSize="10sp"
-                        app:autoSizeTextType="uniform" />
+                        app:autoSizeTextType="uniform"
+                        tools:ignore="NestedWeights" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvDeathCase"

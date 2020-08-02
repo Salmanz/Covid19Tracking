@@ -1,6 +1,6 @@
 package com.zafar.covid19tracking.services
 
-import CountryInfo
+import com.zafar.covid19tracking.model.CountryInfo
 import retrofit2.Call
 import retrofit2.http.GET
 
