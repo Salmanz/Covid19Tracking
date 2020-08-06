@@ -312,12 +312,12 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_weight="1.3"
+                    android:layout_weight="0.9"
                     android:minLines="1"
                     android:text="@string/country"
                     android:textAlignment="textStart"
                     android:textColor="@color/black_night"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     app:autoSizeMaxTextSize="20sp"
                     app:autoSizeMinTextSize="10sp"
                     app:autoSizeTextType="uniform" />
@@ -325,7 +325,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="2.1"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -341,7 +341,7 @@
                         android:text="@string/active"
                         android:textAlignment="textEnd"
                         android:textColor="@color/black_night"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         app:autoSizeMaxTextSize="20sp"
                         app:autoSizeMinTextSize="10sp"
                         app:autoSizeTextType="uniform"
@@ -360,7 +360,7 @@
                         android:text="@string/death"
                         android:textAlignment="textEnd"
                         android:textColor="@color/black_night"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         app:autoSizeMaxTextSize="20sp"
                         app:autoSizeMinTextSize="10sp"
                         app:autoSizeTextType="uniform" />
@@ -378,7 +378,24 @@
                         android:text="@string/recover"
                         android:textAlignment="textEnd"
                         android:textColor="@color/black_night"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
+                        app:autoSizeMaxTextSize="20sp"
+                        app:autoSizeMinTextSize="10sp"
+                        app:autoSizeTextType="uniform" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTotalCase"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="0.5"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:text="@string/total"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black_night"
+                        android:textSize="13sp"
                         app:autoSizeMaxTextSize="20sp"
                         app:autoSizeMinTextSize="10sp"
                         app:autoSizeTextType="uniform" />

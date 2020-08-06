@@ -81,9 +81,33 @@ class CoronaRecyclerViewAdapter(
         fun bind(entry: CoronaEntity) {
             try {
                 itemView.tvTitle.text = entry.info.country
-                itemView.tvCases.text = entry.info.case_confirms.toString()
-                itemView.tvDeathCase.text = entry.info.case_deaths.toString()
-                itemView.tvRecoverCase.text = entry.info.case_recovered.toString()
+//                itemView.tvCases.text = entry.info.case_confirms.toString()
+//                itemView.tvDeathCase.text = entry.info.case_deaths.toString()
+//                itemView.tvRecoverCase.text = entry.info.case_recovered.toString()
+//                itemView.tvTotalCase.text = entry.info.case_total.toString()
+                if(entry.info.case_confirms == 0L){
+                    itemView.tvCases.text = "N/A"
+                }else{
+                    itemView.tvCases.text = entry.info.case_confirms.toString()
+                }
+
+                if(entry.info.case_deaths == 0L){
+                    itemView.tvDeathCase.text = "N/A"
+                }else{
+                    itemView.tvDeathCase.text = entry.info.case_deaths.toString()
+                }
+
+                if(entry.info.case_recovered == 0L){
+                    itemView.tvRecoverCase.text = "N/A"
+                }else{
+                    itemView.tvRecoverCase.text = entry.info.case_recovered.toString()
+                }
+
+                if(entry.info.case_total == 0L){
+                    itemView.tvTotalCase.text = "N/A"
+                }else{
+                    itemView.tvTotalCase.text = entry.info.case_total.toString()
+                }
             } catch (e: Exception) {
 
             }

@@ -119,6 +119,7 @@
     <string name="ok">OK</string>
     <string name="admin_panel">Admin Panel</string>
     <string name="admin_signed_in">Admin Signed In</string>
+    <string name="total">Total</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

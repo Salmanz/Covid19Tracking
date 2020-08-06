@@ -107,12 +107,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     responses.forEach {
                         Log.v("name", it.name);
                         if (it.level == "country") {
+                            var active = it.active.toString()
+                            var deaths = it.deaths.toString()
+                            var recover = it.recovered.toString()
+
+                            if(it.active == 0){
+                                active = "N/A"
+                            }
+                            if(it.deaths == 0){
+                                deaths = "N/A"
+                            }
+                            if(it.recovered == 0){
+                                recover = "N/A"
+                            }
                             mMap.addMarker(
                                 MarkerOptions()
                                     .position(LatLng(it.coordinates[1], it.coordinates[0]))
 //                            .anchor(0.5f, 0.5f)
                                     .title(it.name)
-                                    .snippet("Active:" + it.active + " " + "Death:" + it.deaths + " " + "Recovered:" + it.recovered)
+                                    .snippet("Active:" + active + "  Deaths:" + deaths + "  Recovered:" + recover)
                                     .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                             )
                             coronaEntityInfo = CoronaEntity.DataInfo()
@@ -120,6 +133,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             coronaEntityInfo.case_confirms = it.active.toLong()
                             coronaEntityInfo.case_deaths = it.deaths.toLong()
                             coronaEntityInfo.case_recovered = it.recovered.toLong()
+                            coronaEntityInfo.case_total = it.cases.toLong()
                             coronaEntity = CoronaEntity("", "", coronaEntityInfo)
                             res.add(coronaEntity)
                             i++

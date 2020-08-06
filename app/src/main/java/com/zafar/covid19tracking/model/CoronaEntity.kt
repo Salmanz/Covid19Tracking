@@ -11,6 +11,7 @@ data class CoronaEntity(
         var case_confirms: Long? = 0,
         var case_deaths: Long? = 0,
         var case_recovered: Long? = 0,
+        var case_total: Long? = 0,
         val flags: String? = "",
         var longitude: Double? = 0.0,
         val latitude: Double? = 0.0
