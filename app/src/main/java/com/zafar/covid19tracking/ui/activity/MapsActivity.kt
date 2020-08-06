@@ -110,7 +110,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             var active = it.active.toString()
                             var deaths = it.deaths.toString()
                             var recover = it.recovered.toString()
-
+                            var lat = it.coordinates[0]
+                            var lng = it.coordinates[1]
                             if(it.active == 0){
                                 active = "N/A"
                             }
@@ -120,9 +121,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             if(it.recovered == 0){
                                 recover = "N/A"
                             }
+                            if(it.name == "United States"){
+                                lat = -95.7129
+                                lng = 37.0902
+
+                            }
                             mMap.addMarker(
                                 MarkerOptions()
-                                    .position(LatLng(it.coordinates[1], it.coordinates[0]))
+                                    .position(LatLng(lng, lat))
+//                                    .position(LatLng(it.coordinates[1], it.coordinates[0]))
 //                            .anchor(0.5f, 0.5f)
                                     .title(it.name)
                                     .snippet("Active:" + active + "  Deaths:" + deaths + "  Recovered:" + recover)
