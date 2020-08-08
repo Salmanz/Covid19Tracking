@@ -8,5 +8,8 @@
         android:id="@+id/action_covid19_cases"
         android:icon="@drawable/ic_logout"
         android:title="@string/covid_19_cases" />
+    <item
+        android:id="@+id/action_download_file"
+        android:title="@string/download_csv_file" />
 
 </menu>

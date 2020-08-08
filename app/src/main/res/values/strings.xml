@@ -120,6 +120,8 @@
     <string name="admin_panel">Admin Panel</string>
     <string name="admin_signed_in">Admin Signed In</string>
     <string name="total">Total</string>
+    <string name="download_csv_file">Download CSV file</string>
+    <string name="csv_file_path">CSV File saved to</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>
